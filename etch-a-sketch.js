@@ -1,13 +1,6 @@
-// TODO: createGridCells() needs refactored
-
 function calcTotalNumberOfCells(lengthOfSide) {
 	const totalCells = lengthOfSide * lengthOfSide;
 	return totalCells;
-}
-
-function calculateSize(containerWidth, length) {
-	let cellWidth = containerWidth / length;
-	return cellWidth;
 }
 
 function getGridLength() {
