@@ -1,10 +1,40 @@
-const container = document.querySelector("#etch-a-sketch-container");
-const containerWidth = getContainerWidth(container);
-const sideLength = getChoice();
-const totalCells = calculateTotalCells(sideLength);
-const cellSize = calculateCellSize(sideLength, containerWidth);
+document.addEventListener("DOMContentLoaded", () => {
+	createHeader();
+	createEtchASketch();
 
-createGrid(totalCells, cellSize, container);
+});
+
+function getChoice() {
+	const userInput = 16;
+	/*prompt("Please input the amount of cells you'd like on one side of the grid"); */
+	const gridSideLength = parseInt(userInput);
+	return gridSideLength;
+}
+
+function createHeader() {
+	const headerContainer = initializeHeaderContainer();
+	const button = initializeHeaderButton();
+	const header = initializeHeader(headerContainer, button);
+	document.body.appendChild(header);
+}
+
+function createEtchASketch() {
+	const container = initializeEtchASketchContainer();
+	initializeGrid(container);
+}
+function initializeEtchASketchContainer() {
+	const container = document.createElement("div");
+	container.setAttribute("id", "etch-a-sketch-container");
+	document.body.appendChild(container);
+	return container;
+}
+function initializeGrid(container) {
+	const containerWidth = getContainerWidth(container);
+	const sideLength = getChoice();
+	const totalCells = calculateTotalCells(sideLength);
+	const cellSize = calculateCellSize(sideLength, containerWidth);
+	createGrid(totalCells, cellSize, container);
+}
 
 function createGrid(totalCells, cellSize, container) {
 	for (i = 0; i < totalCells; i++) {
@@ -20,13 +50,6 @@ function createGrid(totalCells, cellSize, container) {
 
 }
 
-function getChoice() {
-	const userInput = 16;
-	/*prompt("Please input the amount of cells you'd like on one side of the grid"); */
-	const gridSideLength = parseInt(userInput);
-	return gridSideLength;
-}
-
 function calculateTotalCells(sideLength) {
 	let sideWidth = sideLength;
 	const totalCells = sideLength * sideWidth;
@@ -40,4 +63,20 @@ function getContainerWidth(container) {
 function calculateCellSize(cells, containerWidth) {
 	return containerWidth / cells;
 }
+function initializeHeaderContainer() {
+	const div = document.createElement("div");
+	div.classList.add("header");
+	return div;
+}
 
+function initializeHeaderButton() {
+	const button = document.createElement("button");
+	button.classList.add("change-size-button");
+	button.textContent = "Resize Grid";
+	return button;
+}
+
+function initializeHeader(header, button) {
+	header.appendChild(button);
+	return header;
+}
