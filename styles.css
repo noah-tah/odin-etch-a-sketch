@@ -19,3 +19,7 @@ body {
 	box-sizing: border-box;
 	border: 1px solid black;
 }
+
+.change-color {
+	background-color: black;
+}

@@ -12,13 +12,17 @@ function createGrid(totalCells, cellSize, container) {
 		cell.classList.add("cells");
 		cell.style.width = cellSize.toString() + "px";
 		cell.style.height = cellSize.toString() + "px";
+		cell.addEventListener("mouseover", () => {
+			cell.classList.add("change-color");
+		});
 		container.appendChild(cell);
 	}
 
 }
 
 function getChoice() {
-	const userInput = prompt("Please input the amount of cells you'd like on one side of the grid");
+	const userInput = 16;
+	/*prompt("Please input the amount of cells you'd like on one side of the grid"); */
 	const gridSideLength = parseInt(userInput);
 	return gridSideLength;
 }
@@ -36,5 +40,4 @@ function getContainerWidth(container) {
 function calculateCellSize(cells, containerWidth) {
 	return containerWidth / cells;
 }
-
 
