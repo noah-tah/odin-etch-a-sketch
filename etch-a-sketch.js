@@ -6,14 +6,13 @@ document.addEventListener("DOMContentLoaded", () => {
 	createGrid(gridSize, container);
 });
 
-// TODO: fix this damn button
 function initializeHeaderButton() {
 	const button = document.createElement("button");
 	button.classList.add("change-size-button");
-	button.textContent = "Resize Grid";
+	button.textContent = "Resize and Reset Grid";
 	button.addEventListener("click", () => {
 		clearGrid();
-		const container = initializeEtchASketchContainer(); // TODO: replace with new functions created in DOMCONTENTLOADED
+		const container = initializeEtchASketchContainer();
 		const sideLength = getChoice();
 		const gridSize = initializeGrid(container, sideLength);
 		createGrid(gridSize, container);
@@ -80,8 +79,6 @@ function initializeHeaderContainer() {
 	return div;
 }
 
-
-
 function initializeHeader(header, button) {
 	header.appendChild(button);
 	return header;
@@ -95,7 +92,6 @@ function clearGrid() {
 		cell.remove();
 	}
 	container.remove();
-
 }
 
 
