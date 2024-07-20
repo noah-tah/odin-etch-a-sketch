@@ -19,6 +19,7 @@ function initializeHeaderButton() {
 	});
 	return button;
 }
+
 function getChoice() {
 	let userInput = prompt("Please input the amount of cells you'd like on one side of the grid (MAX: 99)");
 	let gridSideLength = parseInt(userInput);
@@ -61,7 +62,8 @@ function createGrid(gridSize, container) {
 		cell.style.width = cellSize.toString() + "px";
 		cell.style.height = cellSize.toString() + "px";
 		cell.addEventListener("mouseover", () => {
-			cell.classList.add("change-color");
+			let randomColor = getRandomColor();
+			cell.style.backgroundColor = "#" + randomColor;
 		});
 		container.appendChild(cell);
 	}
@@ -99,6 +101,11 @@ function clearGrid() {
 		cell.remove();
 	}
 	container.remove();
+}
+
+function getRandomColor() {
+	let randomColor = Math.floor(Math.random() * 16777215).toString(16);
+	return randomColor;
 }
 
 
