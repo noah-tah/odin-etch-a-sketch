@@ -1,12 +1,12 @@
 document.addEventListener("DOMContentLoaded", () => {
 	createHeader();
-	createEtchASketch();
-
+	const container = initializeEtchASketchContainer();
+	const gridSize = initializeGrid(container);
+	createGrid(gridSize, container);
 });
 
 function getChoice() {
-	const userInput = 16;
-	/*prompt("Please input the amount of cells you'd like on one side of the grid"); */
+	const userInput = prompt("Please input the amount of cells you'd like on one side of the grid");
 	const gridSideLength = parseInt(userInput);
 	return gridSideLength;
 }
@@ -18,10 +18,6 @@ function createHeader() {
 	document.body.appendChild(header);
 }
 
-function createEtchASketch() {
-	const container = initializeEtchASketchContainer();
-	initializeGrid(container);
-}
 function initializeEtchASketchContainer() {
 	const container = document.createElement("div");
 	container.setAttribute("id", "etch-a-sketch-container");
@@ -33,10 +29,11 @@ function initializeGrid(container) {
 	const sideLength = getChoice();
 	const totalCells = calculateTotalCells(sideLength);
 	const cellSize = calculateCellSize(sideLength, containerWidth);
-	createGrid(totalCells, cellSize, container);
+	return [cellSize, totalCells];
 }
 
-function createGrid(totalCells, cellSize, container) {
+function createGrid(gridSize, container) {
+	[cellSize, totalCells] = gridSize;
 	for (i = 0; i < totalCells; i++) {
 		const cell = document.createElement('div');
 		cell.classList.add("cells");
@@ -47,7 +44,6 @@ function createGrid(totalCells, cellSize, container) {
 		});
 		container.appendChild(cell);
 	}
-
 }
 
 function calculateTotalCells(sideLength) {
@@ -73,10 +69,25 @@ function initializeHeaderButton() {
 	const button = document.createElement("button");
 	button.classList.add("change-size-button");
 	button.textContent = "Resize Grid";
+	button.addEventListener("click", () => {
+		clearGrid();
+		getChoice();
+		const container = initializeEtchASketchContainer();
+		createEtchASketch(container);
+
+	});
 	return button;
 }
 
 function initializeHeader(header, button) {
 	header.appendChild(button);
 	return header;
+}
+
+function clearGrid() {
+	let cells = document.querySelectorAll(".cells");
+	for (i = 0; i < cells.length; i++) {
+		let cell = cells[i]
+		cell.remove();
+	}
 }
