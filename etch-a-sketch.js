@@ -20,10 +20,17 @@ function initializeHeaderButton() {
 	return button;
 }
 function getChoice() {
-	const userInput = prompt("Please input the amount of cells you'd like on one side of the grid");
-	const gridSideLength = parseInt(userInput);
-	return gridSideLength;
+	let userInput = prompt("Please input the amount of cells you'd like on one side of the grid (MAX: 99)");
+	let gridSideLength = parseInt(userInput);
+	if (gridSideLength < 100 && gridSideLength > 0) {
+		return gridSideLength;
+	} else {
+		userInput = prompt("Invalid input! Please enter a number: 0 < 0 < 100!");
+		gridSideLength = parseInt(userInput);
+		return gridSideLength;
+	}
 }
+
 
 
 function createHeader() {
