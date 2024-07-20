@@ -1,15 +1,31 @@
 document.addEventListener("DOMContentLoaded", () => {
 	createHeader();
 	const container = initializeEtchASketchContainer();
-	const gridSize = initializeGrid(container);
+	const sideLength = getChoice();
+	const gridSize = initializeGrid(container, sideLength);
 	createGrid(gridSize, container);
 });
 
+// TODO: fix this damn button
+function initializeHeaderButton() {
+	const button = document.createElement("button");
+	button.classList.add("change-size-button");
+	button.textContent = "Resize Grid";
+	button.addEventListener("click", () => {
+		clearGrid();
+		const container = initializeEtchASketchContainer(); // TODO: replace with new functions created in DOMCONTENTLOADED
+		const sideLength = getChoice();
+		const gridSize = initializeGrid(container, sideLength);
+		createGrid(gridSize, container);
+	});
+	return button;
+}
 function getChoice() {
 	const userInput = prompt("Please input the amount of cells you'd like on one side of the grid");
 	const gridSideLength = parseInt(userInput);
 	return gridSideLength;
 }
+
 
 function createHeader() {
 	const headerContainer = initializeHeaderContainer();
@@ -24,9 +40,8 @@ function initializeEtchASketchContainer() {
 	document.body.appendChild(container);
 	return container;
 }
-function initializeGrid(container) {
+function initializeGrid(container, sideLength) {
 	const containerWidth = getContainerWidth(container);
-	const sideLength = getChoice();
 	const totalCells = calculateTotalCells(sideLength);
 	const cellSize = calculateCellSize(sideLength, containerWidth);
 	return [cellSize, totalCells];
@@ -65,19 +80,7 @@ function initializeHeaderContainer() {
 	return div;
 }
 
-function initializeHeaderButton() {
-	const button = document.createElement("button");
-	button.classList.add("change-size-button");
-	button.textContent = "Resize Grid";
-	button.addEventListener("click", () => {
-		clearGrid();
-		getChoice();
-		const container = initializeEtchASketchContainer();
-		createEtchASketch(container);
 
-	});
-	return button;
-}
 
 function initializeHeader(header, button) {
 	header.appendChild(button);
@@ -86,8 +89,13 @@ function initializeHeader(header, button) {
 
 function clearGrid() {
 	let cells = document.querySelectorAll(".cells");
+	let container = document.querySelector("#etch-a-sketch-container");
 	for (i = 0; i < cells.length; i++) {
 		let cell = cells[i]
 		cell.remove();
 	}
+	container.remove();
+
 }
+
+
