@@ -54,20 +54,7 @@ function initializeGrid(container, sideLength) {
 	return [cellSize, totalCells];
 }
 
-function createGrid(gridSize, container) {
-	[cellSize, totalCells] = gridSize;
-	for (i = 0; i < totalCells; i++) {
-		const cell = document.createElement('div');
-		cell.classList.add("cells");
-		cell.style.width = cellSize.toString() + "px";
-		cell.style.height = cellSize.toString() + "px";
-		cell.addEventListener("mouseover", () => {
-			let randomColor = getRandomColor();
-			cell.style.backgroundColor = "#" + randomColor;
-		});
-		container.appendChild(cell);
-	}
-}
+
 
 function calculateTotalCells(sideLength) {
 	let sideWidth = sideLength;
@@ -97,7 +84,7 @@ function clearGrid() {
 	let cells = document.querySelectorAll(".cells");
 	let container = document.querySelector("#etch-a-sketch-container");
 	for (i = 0; i < cells.length; i++) {
-		let cell = cells[i]
+		let cell = cells[i];
 		cell.remove();
 	}
 	container.remove();
@@ -108,4 +95,27 @@ function getRandomColor() {
 	return randomColor;
 }
 
+function getNewOpacity(step) {
+	let opacityValue = step / 10;
+	return opacityValue;
 
+}
+
+function createGrid(gridSize, container) {
+	[cellSize, totalCells] = gridSize;
+	for (i = 0; i < totalCells; i++) {
+		const cell = document.createElement('div');
+		cell.classList.add("cells");
+		cell.style.width = cellSize.toString() + "px";
+		cell.style.height = cellSize.toString() + "px";
+		let stepCounter = 10;
+		cell.addEventListener("mouseover", () => {
+			let randomColor = getRandomColor();
+			cell.style.backgroundColor = "#" + randomColor;
+			let newOpacity = getNewOpacity(stepCounter);
+			stepCounter--;
+			cell.style.opacity = newOpacity;
+		});
+		container.appendChild(cell);
+	}
+}
